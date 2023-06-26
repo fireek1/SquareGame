@@ -1,0 +1,63 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+}
+
+.game {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(126, 126, 126);
+    position: relative;
+}
+
+.obj {
+    position: absolute;
+}
+
+.platform-1 {
+    left: 80px;
+    top: 500px;
+    width: 700px;
+    height: 100px;
+    background-color: #494949;
+}
+
+.platform-2 {
+    left: 800px;
+    top: 800px;
+    width: 700px;
+    height: 100px;
+    background-color: #965d5d;
+}
+
+.platform-3 {
+    left: 80px;
+    top: 900px;
+    width: 700px;
+    height: 100px;
+    background-color: #494949;
+}
+
+.player-style {
+    fill: #A34343;
+    transition: 0.5s;
+}
+
+.player {
+    width: 50px;
+    height: 50px;
+    translate: 0px;
+    transform: translateY(-100px);
+    z-index: 10;
+}
+
+.hitbox-player {
+    width: 33.33px;
+    height: 33.33px;
+    background-color: #fff;
+}
