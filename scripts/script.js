@@ -2,18 +2,21 @@ const player = document.querySelector('.player')
 const playerStyle = document.querySelector('.player-style')
 const solids = document.querySelectorAll('.solid')
 const floor = document.querySelectorAll('.floor')
+const game = document.querySelector('.game')
 
 const maxAngle = 22
 
 let angle = 0
+let tall = 100
 let playerSpeed = 0
-const maxSpeed = 10
-const maxJump = 1
+let maxSpeed = 10
 let fallSpeed = 0
 let positionX = -10
 let positionY = 0
+const screenW = window.innerWidth
 
 let countClock = 0
+
 
 let isJump = false
 let onTheFloor = false
@@ -22,18 +25,39 @@ let isMovingLeft = false
 
 function colision() {
     onTheFloor = false
-
     for (let i = 0; i < floor.length; i++) {
         const floorYStart = +window.getComputedStyle(floor[i]).top.slice(0, -2) - 42
         const floorYEnd = floorYStart + +window.getComputedStyle(floor[i]).height.slice(0, -2)
         const floorStart = +window.getComputedStyle(floor[i]).left.slice(0, -2) - 42
         const floorEnd = +window.getComputedStyle(floor[i]).width.slice(0, -2) + floorStart + 33.33
 
-        if (!onTheFloor && positionY <= floorYEnd && positionY >= floorYStart && positionX >= floorStart && positionX <= floorEnd) {
+        if (inY(floorYStart + 33.33, floorYEnd) && inX(floorStart, floorStart + 10)) {
+            positionX = floorStart
+            isMovingRight = false
+            playerSpeed = 0
+        }   else if (inY(floorYStart + 33.33, floorYEnd) && inX(floorEnd - 10, floorEnd)) {
+            positionX = floorEnd
+            isMovingLeft = false
+            playerSpeed = 0
+        } else if (!onTheFloor && inY(floorYStart, floorYStart + 30) && inX(floorStart + 1, floorEnd - 1)) {
             positionY = floorYStart
             onTheFloor = true
+        } else if (inY(floorYEnd - 10, floorYEnd + 33.33) && inX(floorStart + 1, floorEnd - 1)) {
+            fallSpeed = 3
         }
     }
+}
+
+function inX(start, end) {
+    if (positionX >= start && positionX <= end) {
+        return true
+    } else return false
+}
+
+function inY(yStart, yEnd) {
+    if (positionY <= yEnd && positionY >= yStart) {
+        return true
+    } else return false
 }
 
 function fall() {
@@ -90,8 +114,9 @@ function playerAngle() {
     } else if (!isMovingLeft && !isMovingRight && angle < 0) {
         angle += maxAngle / 50 * 15
     }
-    playerStyle.setAttribute('d', `M22 0H${122 + angle}L122 100H22L${22 + angle} 0Z`)
+    playerStyle.setAttribute('d', `M22 0H${122 + angle}L122 ${tall}H22L${22 + angle} 0Z`)
 }
+
 
 document.onkeydown = (e) => {
     if (e.code === 'KeyD' && playerSpeed < maxSpeed) {
@@ -101,7 +126,8 @@ document.onkeydown = (e) => {
     }
 
     if (e.code === 'KeyW' && onTheFloor) {
-        positionY -= 300
+        fallSpeed = -10
+        onTheFloor = false
     }
 }
 
@@ -114,6 +140,7 @@ document.onkeyup = (e) => {
 }
 
 function Frame() {
+
     countClock++
     fall()
     colision()

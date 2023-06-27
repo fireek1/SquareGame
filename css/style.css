@@ -8,8 +8,12 @@ body {
     overflow: hidden;
 }
 
+.speed {
+    background-color: #965d5d;
+}
+
 .game {
-    width: 100vw;
+    width: 200vw;
     height: 100vh;
     background-color: rgb(126, 126, 126);
     position: relative;
@@ -20,7 +24,7 @@ body {
 }
 
 .platform-1 {
-    left: 80px;
+    left: 0px;
     top: 500px;
     width: 700px;
     height: 100px;
@@ -31,13 +35,19 @@ body {
     left: 800px;
     top: 800px;
     width: 700px;
+    height: 100px;  
+}
+
+.platform-4 {
+    left: 1500px;
+    top: 700px;
+    width: 700px;
     height: 100px;
-    background-color: #965d5d;
 }
 
 .platform-3 {
     left: 80px;
-    top: 900px;
+    top: 700px;
     width: 700px;
     height: 100px;
     background-color: #494949;
